@@ -119,8 +119,7 @@ $student_q = $conn->query("SELECT * FROM students WHERE student_id = '$student_i
 $student_data = $student_q->fetch_assoc();
 $student_name = $student_data['full_name'];
 
-$events = $conn->query("SELECT * FROM events ORDER BY event_date ASC");
-$my_events = $conn->query("SELECT attendees.*, events.title, events.event_date, events.event_time, events.venue, events.id as real_event_id FROM attendees JOIN events ON attendees.event_id = events.id WHERE attendees.student_id = '$student_id'");
+$events = $conn->query("SELECT * FROM events WHERE event_date >= '$today_date' ORDER BY event_date ASC");$my_events = $conn->query("SELECT attendees.*, events.title, events.event_date, events.event_time, events.venue, events.id as real_event_id FROM attendees JOIN events ON attendees.event_id = events.id WHERE attendees.student_id = '$student_id'");
 
 // Verified Present Count for Badges & Streak
 $present_check = $conn->query("SELECT attendees.*, events.title FROM attendees JOIN events ON attendees.event_id = events.id WHERE attendees.student_id = '$student_id' AND attendees.status = 'Present'");

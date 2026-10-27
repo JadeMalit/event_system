@@ -1,8 +1,10 @@
 <?php
 include 'includes/config.php'; 
 
-// Kunin ang mga active/upcoming events mula sa database
-$result = $conn->query("SELECT * FROM events ORDER BY event_date ASC");
+$today_date = date('Y-m-d');
+
+// Kunin lamang ang mga active/upcoming events (awtomatikong mawawala ang mga tapos na)
+$result = $conn->query("SELECT * FROM events WHERE event_date >= '$today_date' ORDER BY event_date ASC");
 ?>
 
 <!DOCTYPE html>
